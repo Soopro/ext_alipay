@@ -1,0 +1,24 @@
+{
+  "name": "bower.json",
+  "version": "0.0.1",
+  "homepage": "no",
+  "authors": [
+    "neo"
+  ],
+  "description": "libs",
+  "main": "boer",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "bower"
+  ],
+  "license": "no",
+  "dependencies": {
+    "angular-cookies": "~1.3.8",
+    "angular-resource": "~1.3.8",
+    "angular-route": "~1.3.8",
+    "jquery": ">= 1.9.1",
+    "bootstrap": "~3.3.1"
+  }
+}

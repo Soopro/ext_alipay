@@ -1,0 +1,33 @@
+section.notify
+  .container
+    .row
+      .section-block.textarea
+        section
+          h2(ng-show="payment.paid")
+            .alert.alert-success(role='alert') 订单支付成功!
+          h2(ng-hide="payment.paid")
+            .alert.alert-danger(role='alert') 订单尚未支付!
+    form.row
+      fieldset.form-group
+        .col-md-3.col-sm-3.col-xs-3
+          label 商品:
+        .col-md-9.col-sm-9.col-xs-9
+          p {{ payment.subject }}
+      fieldset.form-group
+        .col-md-3.col-sm-3.col-xs-3
+          label 总价:
+        .col-md-9.col-sm-9.col-xs-9
+          p {{ payment.total_fee }}
+      fieldset.form-group
+        .col-md-3.col-sm-3.col-xs-3
+          label 订单号:
+        .col-md-9.col-sm-9.col-xs-9
+          p {{ payment.order_no }}
+      fieldset.form-group
+        .col-md-3.col-sm-3.col-xs-3
+          label 支付单号:
+        .col-md-9.col-sm-9.col-xs-9
+          p {{ payment.trade_no }}
+      fieldset.form-group
+        .col-md-12.col-sm-12.col-xs-12.text-center
+          button.btn.btn-default.btn-wider(ng-click='close_notify()') 关闭

@@ -1,0 +1,15 @@
+{
+    "alias" : "payment",
+    "author" : "Eric Yang",
+    "title" : "Alipay payment gate way",
+    "thumbnail": "alipay.png",
+    "previews": [],
+    "price" : 0,
+    "capability": ["ws"],
+    "description" : "convenient payment with alipay",
+    "published": false,
+    "domain":"ext.sup.farm",
+    "protocol": "http",
+    "path": "/payment/",
+    "entrypoint": "http://ext.sup.farm/payment/#/auth"
+}

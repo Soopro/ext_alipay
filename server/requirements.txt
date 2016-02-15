@@ -1,0 +1,4 @@
+Flask==0.10.1
+mongokit==0.9.1.1
+requests==2.3.0
+alipay==0.7.3

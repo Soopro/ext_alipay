@@ -1,0 +1,119 @@
+.wrapper
+  section.container-fluid
+
+    .row
+      .section-block.col-md-12.textarea
+        section
+          header
+            h2.title
+              span.text 支付 / 本订单详情
+
+          .col-xs-6.text-left
+            a.btn.btn-primary.btn-circle(
+            href="#/order"
+            )
+              i.ico-turn-left
+          .col-xs-6.text-right.funcbar
+            a.btn.btn-primary.btn-wider(
+            href='#/settings'
+            ) 信息设置
+
+            a.btn.btn-primary.btn-wider(
+            href='#/order'
+            ) 订单管理
+
+            include ../user/logout
+    .row
+      .section-block.col-md-12.textarea
+        section
+          header
+            h3.title 订单详情:
+
+          .row
+            .text-group.col-md-6
+              label 订单号：
+              p.hl.selectable
+                b(ng-bind='current_order.order_no')
+            .text-group.col-md-6
+              label 创建时间：
+              p.hl.selectable
+                b(ng-bind='current_order.create_time')
+
+          .row
+            .text-group.col-md-6
+              label 订单标题：
+              p.hl.selectable
+                b(ng-bind='current_order.subject')
+            .text-group.col-md-6
+              label 订单描述：
+              p.hl.selectable
+                b(ng-bind='current_order.body')
+
+          .row
+            .text-group.col-md-6
+              label 价格：
+              p.hl.selectable
+                b(ng-bind='current_order.price / 100')
+            .text-group.col-md-6
+              label 数量：
+              p.hl.selectable
+                b(ng-bind='current_order.amount')
+
+          .row
+            .text-group.col-md-6
+              label 总价：
+              p.hl.selectable
+                b(ng-bind='current_order.total_fee / 100')
+            .text-group.col-md-6
+              label 买家ID：
+              p.hl.selectable
+                b(ng-bind='current_order.member_id')
+
+          .row
+            .text-group.col-md-6
+              label 订单状态：
+              p.hl.selectable
+                b(ng-bind='current_order.status')
+            .text-group.col-md-6
+              label 支付宝单号：
+              p.hl.selectable
+                b(ng-bind='current_order.trade_no')
+
+          .row
+            .col-xs-6.text-left
+              a.btn.btn-default.btn-wider(
+              ng-click="delete_order()"
+              ) 删除这笔订单
+
+                
+      .section-block.col-md-12.textarea(ng-show='current_order.express')
+        section
+          header
+            h3.title 收货人信息:
+          .row
+            .text-group.col-md-6
+              label 收件人姓名：
+              p.hl.selectable
+                b(ng-bind='current_order.express.receive_name')
+
+          .row
+            .text-group.col-md-6
+              label 收件人电话：
+              p.hl.selectable
+                b(ng-bind='current_order.express.receive_tel')
+
+          .row
+            .text-group.col-md-6
+              label 收件人地址：
+              p.hl.selectable
+                b(ng-bind='current_order.express.receive_address')
+                 
+      .section-block.col-md-12.textarea(ng-show='current_order.extra')
+        section
+          header
+            h3.title 其他详情:
+          .row(ng-repeat='item in current_order.extra')
+            .text-group.col-md-6
+              label {{ item.display }}
+              p.hl.selectable
+                b {{ item.value }}
