@@ -13,7 +13,7 @@ class AlipayProfile(BaseDocument):
         'seller_email': unicode
     }
 
-    def find_one_by_app_id(self, open_id):
+    def find_one_by_open_id(self, open_id):
         return self.one({
             "open_id": open_id
         })

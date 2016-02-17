@@ -20,14 +20,15 @@ route_inject(blueprint, urls)
 
 @blueprint.before_app_first_request
 def before_first_request():
-    from .terms import *
-    current_app.mongodb_database.register()
+    from .models import Order
+    from .terms import profiles
+    current_app.mongodb_database.register(list(Order) + profiles)
 
 
 @blueprint.before_request
 def before_request():
     if request.endpoint not in open_api_endpoints:
-        verify_token()
+        verify_token(current_app.config.get("DEBUG"))
 
 
 @blueprint.errorhandler(APIError)
