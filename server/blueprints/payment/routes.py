@@ -14,9 +14,11 @@ urlpatterns = [
     
     # for customers
     ("/order", new_order, "POST"),
+    ("/order", get_orders, "GET"),
+    ("/order/<order_id>", get_order, "GET"),
     ("/order/<order_id>", save_order, "PUT"),
-    ("/order/<order_id>", save_order, "DELETE"),
+    ("/order/<order_id>", delete_order, "DELETE"),
     
-    ("/term/<term_alias>/pay", pay, "DELETE"),
+    ("/term/<term_alias>/pay", pay, "POST"),
 
 ]

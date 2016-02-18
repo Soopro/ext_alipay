@@ -31,9 +31,7 @@ class Order(BaseDocument):
         'total_fee',
         'receive_name',
         'receive_tel',
-        'receive_address',
-        'payment_term',
-        'trade_id',
+        'receive_address'
     ]
     default_values = {
         'status': 0,
@@ -51,3 +49,12 @@ class Order(BaseDocument):
         return self.find({
             "member_id": member_id
         })
+        
+    def find_one_by_id_and_mid(self, order_id, member_id):
+        return self.find({
+            "_id": ObjectId(order_id),
+            "member_id": member_id
+        })
+
+    def remove(self):
+        self['deleted'] = True
