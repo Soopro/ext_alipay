@@ -8,9 +8,19 @@ class AlipayProfile(BaseDocument):
     __collection__ = 'alipay_profile'
     structure = {
         'open_id': unicode,  # soopro_open_id
-        'alipay_pid': unicode,
-        'alipay_key': unicode,
-        'seller_email': unicode
+        'pid': unicode,
+        'key': unicode,
+        'seller_email': unicode,
+        'status': int
+    }
+
+    required_fields = ['open_id']
+
+    default_values = {
+        'pid': u'',
+        'key': u'',
+        'seller_email': u'',
+        'status': 0
     }
 
     def find_one_by_open_id(self, open_id):

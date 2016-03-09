@@ -1,6 +1,7 @@
 # coding=utf-8
 from __future__ import absolute_import
 
+from bson import ObjectId
 from utils.models import BaseDocument
 
 
@@ -21,7 +22,7 @@ class Order(BaseDocument):
         'trade_id': unicode,
         'extra': dict,
         'deleted': bool,
-        'status': int 
+        'status': int
     }
     required_fields = [
         'open_id',
@@ -49,7 +50,7 @@ class Order(BaseDocument):
         return self.find({
             "member_id": member_id
         })
-        
+
     def find_one_by_id_and_mid(self, order_id, member_id):
         return self.find({
             "_id": ObjectId(order_id),

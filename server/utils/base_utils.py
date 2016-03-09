@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 
 from functools import wraps
-
 from flask import make_response, json, current_app, request
 from mongokit.cursor import Cursor
 from errors.base_errors import APIError

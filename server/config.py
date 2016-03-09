@@ -6,10 +6,10 @@ class Config(object):
     DEBUG = True
 
     HOST = "127.0.0.1"
-    PORT = 5001
+    PORT = 5003
 
-    EXT_COMMENT_DB_HOST = '127.0.0.1'
-    EXT_COMMENT_DB_PORT = 27017
+    EXT_PAYMENT_DB_HOST = '127.0.0.1'
+    EXT_PAYMENT_DB_PORT = 27017
 
     SECRET_KEY = 'secret_key'
 
@@ -25,7 +25,7 @@ class Config(object):
 
     REDIRECT_URI = 'http://localhost:9527/#/redirect'
     EXPIRED_IN = 36000
-    
+
     CHECKOUT_NOTIFY_URL = u'http://localhost:5001/alipay/confirm_payment'
     CHECKOUT_RETURN_URL = u'http://localhost:9002/checkout#/notify'
 
@@ -39,23 +39,23 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    EXT_COMMENT_DB_DBNAME = 'ext_payment_dev'
+    EXT_PAYMENT_DB_DBNAME = 'ext_payment_dev'
 
 
 class TestCaseConfig(Config):
     DEBUG = False
-    EXT_COMMENT_DB_DBNAME = 'ext_payment_testcase'
+    EXT_PAYMENT_DB_DBNAME = 'ext_payment_testcase'
 
 
 class TestingConfig(Config):
     DEBUG = False
-    EXT_COMMENT_DB_DBNAME = 'ext_payment_test'
+    EXT_PAYMENT_DB_DBNAME = 'ext_payment_test'
 
 
 class ProductionConfig(Config):
     DEBUG = False
-    EXT_COMMENT_DB_DBNAME = 'ext_payment_production'
-    
+    EXT_PAYMENT_DB_DBNAME = 'ext_payment_production'
+
     REDIRECT_URI = 'http://ext.soopro.com/payment/client/#/redirect'
 
 
@@ -63,6 +63,6 @@ config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
-    "testcase": TestCaseConfig,
+    'testcase': TestCaseConfig,
     'default': DevelopmentConfig
 }

@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 from __future__ import absolute_import
 
 from utils.auth import AuthFailed, get_current_user, get_current_member
@@ -9,16 +9,22 @@ from flask import current_app, g
 def get_user_from_app():
     redis_conn = current_app.redis
     mongodb_conn = current_app.mongodb_conn
-    expired_token_key_prefix = current_app.config.get("INVALID_USER_TOKEN_PREFIX")
-    current_user = get_current_user(redis_conn, mongodb_conn, expired_token_key_prefix)
+    expired_token_key_prefix = current_app.config.get(
+        "INVALID_USER_TOKEN_PREFIX")
+    current_user = get_current_user(redis_conn,
+                                    mongodb_conn,
+                                    expired_token_key_prefix)
     return current_user
 
 
 def get_member():
     redis_conn = current_app.redis
     mongodb_conn = current_app.mongodb_conn
-    expired_token_key_prefix = current_app.config.get("INVALID_MEMBER_TOKEN_PREFIX")
-    member = get_current_member(redis_conn, mongodb_conn, expired_token_key_prefix)
+    expired_token_key_prefix = current_app.config.get(
+        "INVALID_MEMBER_TOKEN_PREFIX")
+    member = get_current_member(redis_conn,
+                                mongodb_conn,
+                                expired_token_key_prefix)
     return member
 
 
@@ -35,7 +41,6 @@ def verify_jwt():
         raise ErrInactiveUser
 
     g.current_user = current_user
-    return
 
 
 def verify_jwt_allow_inactive():
@@ -48,7 +53,6 @@ def verify_jwt_allow_inactive():
         raise AuthenticationFailed
 
     g.current_user = current_user
-    return
 
 
 def verify_jwt_member():
@@ -58,4 +62,3 @@ def verify_jwt_member():
         raise AuthenticationFailed
 
     g.current_member = member
-    return
