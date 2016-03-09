@@ -27,18 +27,18 @@ def get_request_json(key, validator=None, default=None, required=False):
 
     if required and key not in source:
         raise ValidationParameterRequired(key)
-    
+
     value = source.get(key)
-    
+
     if not isinstance(validator, list):
         validator = [validator]
-    
+
     if is_empty_value(value):
         if default is not None:
             value = default
         elif required:
             raise ValidationParameterRequired(key)
-        
+
     for vld in validator:
         if not hasattr(vld, '__call__'):
             continue

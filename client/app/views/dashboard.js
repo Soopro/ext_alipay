@@ -19,14 +19,12 @@ angular.module('paymentClient')
     restAPI,
     $location
   ) {
-    $scope.alipay = new restAPI.payment();
-    $scope.alipay.$get({'alias': 'alipay'}).then(function(data){
-      // console.log(data);
-      // console.log($scope.alipay);
-      // console.log(data.alipay_pid);
-      $scope.alipay = data;
-      $scope.alipay.name = 'alipay';
+
+    $scope.alipay = new restAPI.payment({'alias': 'alipay'});
+    $scope.alipay.$get().then(function(data){
+      $scope.alipay.background = 
     })
+
     
     
 
