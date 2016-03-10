@@ -11,7 +11,8 @@ class AlipayProfile(BaseDocument):
         'pid': unicode,
         'key': unicode,
         'seller_email': unicode,
-        'status': int
+        # 'status': int,
+        'term': unicode
     }
 
     required_fields = ['open_id']
@@ -20,7 +21,8 @@ class AlipayProfile(BaseDocument):
         'pid': u'',
         'key': u'',
         'seller_email': u'',
-        'status': 0
+        # 'status': 0,
+        'term': 'alipay'
     }
 
     def find_one_by_open_id(self, open_id):

@@ -6,8 +6,10 @@ from .controllers import *
 
 urlpatterns = [
     # for admin
+    ("/term", get_terms, "GET"),
     ("/term/<term_alias>/profile", get_profile, "GET"),
-    ("/term/<term_alias>/profile", save_profile, "POST"),
+    ("/term/<term_alias>/profile", create_profile, "POST"),
+    ("/term/<term_alias>/profile", update_profile, "PUT"),
     ("/term/<term_alias>/profile", delete_profile, "DELETE"),
 
     ("/order", get_all_orders, "GET"),

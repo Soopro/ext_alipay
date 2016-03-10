@@ -2,9 +2,10 @@
 from __future__ import absolute_import
 
 from flask import g, current_app
-from .terms import get_term
+from .terms import get_term, terms
 from utils.base_utils import output_json
 from utils.request_json import get_request_json
+
 
 @output_json
 def get_profile(term_alias):
@@ -13,9 +14,15 @@ def get_profile(term_alias):
 
 
 @output_json
-def save_profile(term_alias):
+def create_profile(term_alias):
     term = get_term(term_alias)
     return term.save_profile()
+
+
+@output_json
+def update_profile(term_alias):
+    term = get_term(term_alias)
+    return term.update_profile()
 
 
 @output_json
@@ -28,6 +35,12 @@ def delete_profile(term_alias):
 def pay(term_alias):
     term = get_term(term_alias)
     return term.pay()
+
+
+@output_json
+def get_terms():
+    return [term.output_profile(term.Profile.find_one_by_open_id(
+        g.current_user['open_id'])) for term in terms]
 
 
 @output_json

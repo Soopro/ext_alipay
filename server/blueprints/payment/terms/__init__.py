@@ -7,7 +7,8 @@ TERMS = {
     'alipay': alipay
 }
 
-profiles = [term.Profile for _, term in TERMS.items()]
+terms = [term for _, term in TERMS.items()]
+profiles = [term.Profile for term in terms]
 
 
 def get_term(term_alias):

@@ -5,9 +5,8 @@ import uuid
 from utils.base_utils import now
 from utils.base_utils import output_json
 from flask import current_app, request, g
-from utils.request import parse_json, parse_args
-from errors.validation_errors import ObjectIdStructure, UrlStructure
-from errors.general_errors import (AuthenticationFailed, 
+from errors.validation_errors import ObjectIdStructure
+from errors.general_errors import (AuthenticationFailed,
                                    NotFound,
                                    PermissionDenied)
 from errors.bp_users_errors import (SooproAccessDeniedError,
@@ -73,22 +72,22 @@ def get_sup_token():  # code to here
             try:
                 resp = current_app.sup_auth.\
                     refresh_access_token(user['refresh_token'])
-                if not 'access_token' in resp: 
+                if 'access_token' not in resp:
                     resp = current_app.sup_auth.get_access_token(data['code'])
             except Exception, e:
                 # print e
                 raise SooproRequestAccessTokenError()
-    
+
     # print 'resp'
     # print resp
-    if not 'access_token' in resp:
+    if 'access_token' not in resp:
         # print resp
         raise SooproAPIError('Soopro OAuth2 get token error: ' + str(data))
-        
+
     user['access_token'] = resp['access_token']
     user['refresh_token'] = resp['refresh_token']
     user['expires_in'] = resp['expires_in']
-    user['display_name'] = u''  # TODO display name   
+    user['display_name'] = u''  # TODO display name
     user['ext_token'] = current_app.sup_auth.generate_ext_token(open_id)
     user.save()
 
