@@ -77,11 +77,17 @@ def pay():
                     key=profile['key'],
                     seller_email=profile['seller_email'])
 
-    return alipay.create_direct_pay_by_user_url(out_trade_no=out_trade_no,
-                                                subject=subject,
-                                                total_fee=total_fee,
-                                                return_url=return_url,
-                                                notify_url=notify_url)
+    payment_url = alipay.create_direct_pay_by_user_url(
+        out_trade_no=out_trade_no,
+        subject=subject,
+        total_fee=total_fee,
+        return_url=return_url,
+        notify_url=notify_url
+    )
+
+    return {
+        "payment_url": payment_url
+    }
 
 
 def output_profile(profile):
