@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 from flask import current_app, g
 from utils.request_json import get_request_json
+from alipay import Alipay
 
 
 def get_profile():
@@ -60,7 +61,27 @@ def delete_profile():
 
 
 def pay():
-    pass
+    out_trade_no = get_request_json('out_trade_no', required=True)
+    subject = get_request_json('subject', required=True)
+    total_fee = get_request_json('total_fee', required=True)
+    notify_url = get_request_json('notify_url', required=True)
+    return_url = get_request_json('return_url', required=True)
+
+    open_id = g.current_user['open_id']
+    Profile = current_app.mongodb_conn.AlipayProfile
+    profile = Profile.find_one_by_open_id(open_id)
+    if not profile:
+        raise Exception
+
+    alipay = Alipay(pid=profile['pid'],
+                    key=profile['key'],
+                    seller_email=profile['seller_email'])
+
+    return alipay.create_direct_pay_by_user_url(out_trade_no=out_trade_no,
+                                                subject=subject,
+                                                total_fee=total_fee,
+                                                return_url=return_url,
+                                                notify_url=notify_url)
 
 
 def output_profile(profile):
