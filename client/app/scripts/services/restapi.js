@@ -20,7 +20,7 @@ angular.module('paymentClient')
         return $resource(auth_api+"/alias");
       })(),
       payment: (function () {
-        return $resource(api+"/term/:alias/profile", null, {
+        return $resource(api+"/term/:alias", null, {
           "update": {method: "PUT"}
         });
       })(),

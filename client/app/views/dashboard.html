@@ -1,5 +1,6 @@
 <div layout="row" layout-align="center">
-  <md-button class="payment" aria-label="alipay"
-   ng-style="setBackground(alipay)" 
-   ng-click="jumpTo()"></md-button>
+  <md-button class="payment" aria-label="{{payment.term}}"
+   ng-style="setBackground(payment)" 
+   ng-click="jumpTo('/term/' + payment.term)"
+   ng-repeat="payment in payments"></md-button>
 </div>

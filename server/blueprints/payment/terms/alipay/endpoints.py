@@ -64,6 +64,7 @@ def pay():
 
 
 def output_profile(profile):
+    Profile = current_app.mongodb_conn.AlipayProfile
     if profile:
         return {
             'id': profile['_id'],
@@ -71,8 +72,7 @@ def output_profile(profile):
             'pid': profile['pid'],
             'key': profile['key'],
             'seller_email': profile['seller_email'],
-            'status': profile['status'],
-            'term': profile['term']
+            'term': Profile.TERM
         }
     else:
         return {
@@ -81,6 +81,5 @@ def output_profile(profile):
             'pid': u'',
             'key': u'',
             'seller_email': u'',
-            'status': 0,
-            'term': 'alipay'
+            'term': Profile.TERM
         }

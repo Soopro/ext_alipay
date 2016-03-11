@@ -19,11 +19,10 @@ angular.module('paymentClient')
     restAPI,
     $location
   ) {
-    $scope.alipay = new restAPI.payment.get({'alias': 'alipay'});
-    $scope.alipay.backgound = {"background-image": "url(styles/" + $scope.alipay.term + '_' + $scope.alipay.status ? 'active' : 'negative' + '.png)'};
+    $scope.payments = new restAPI.payment.query();
 
     $scope.setBackground = function(payment){
-      var status = payment.status ? 'active' : 'negative';
+      var status = payment.id ? 'active' : 'negative';
       return payment.term ? {"background-image": "url(styles/" + payment.term + '_' + status + '.png)'} : "";
     };
 

@@ -16,7 +16,7 @@ def get_profile(term_alias):
 @output_json
 def create_profile(term_alias):
     term = get_term(term_alias)
-    return term.save_profile()
+    return term.create_profile()
 
 
 @output_json
@@ -39,14 +39,13 @@ def pay(term_alias):
 
 @output_json
 def get_terms():
-    return [term.output_profile(term.Profile.find_one_by_open_id(
-        g.current_user['open_id'])) for term in terms]
+    return [term.get_profile() for term in terms]
 
 
 @output_json
 def get_all_orders():
     open_id = g.current_user['open_id']
-    orders = current_app.mongo_conn.Order.find_all_by_open_id(open_id)
+    orders = current_app.mongodb_conn.Order.find_all_by_open_id(open_id)
 
     return [output_order(order) for order in orders]
 
@@ -68,7 +67,7 @@ def new_order():
     # payment_term = get_request_json('payment_term', required=True)
     # trade_id = get_request_json('trade_id', required=True)
 
-    order = current_app.mongo_conn.Order()
+    order = current_app.mongodb_conn.Order()
     order['open_id'] = open_id
     order['subject'] = subject
     order['body'] = body
@@ -88,7 +87,7 @@ def new_order():
 @output_json
 def get_orders():
     member_id = g.current_member['id']
-    orders = current_app.mongo_conn.Order.find_all_by_member_id(member_id)
+    orders = current_app.mongodb_conn.Order.find_all_by_member_id(member_id)
 
     return [output_order(order) for order in orders]
 
@@ -96,7 +95,7 @@ def get_orders():
 @output_json
 def get_order(order_id):
     member_id = g.current_member['id']
-    order = current_app.mongo_conn.\
+    order = current_app.mongodb_conn.\
         Order.find_one_by_id_and_mid(order_id, member_id)
     if not order:
         raise Exception
@@ -122,7 +121,7 @@ def get_order(order_id):
 @output_json
 def delete_order(order_id):
     member_id = g.current_member['id']
-    order = current_app.mongo_conn.\
+    order = current_app.mongodb_conn.\
         Order.find_one_by_id_and_mid(order_id, member_id)
     if not order:
         raise Exception

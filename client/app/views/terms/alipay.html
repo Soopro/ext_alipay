@@ -1,0 +1,31 @@
+<form name="alipayForm">
+  <div flex="grow" layout="column" layout-align="center center">
+    <md-input-container>
+      <label>pid</label>
+      <input ng-model="payment.pid" name="pid"
+       required ng-pattern="/^[0-9a-zA-Z_]+$/">
+      <div ng-messages="alipayForm.pid.$error" role="alert">
+        <div ng-message-exp="['required']">Required</div>
+        <div ng-message-exp="['pattern']">With [0-9a-zA-Z_] only</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>key</label>
+      <input ng-model="payment.key" name="key"
+       required ng-pattern="/^[0-9a-zA-Z_]+$/">
+      <div ng-messages="alipayForm.key.$error" role="alert">
+        <div ng-message-exp="['required']">Required</div>
+        <div ng-message-exp="['pattern']">With [0-9a-zA-Z_] only</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>seller_email</label>
+      <input ng-model="payment.seller_email" name="seller_email"
+       required ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/">
+      <div ng-messages="alipayForm.seller_email.$error" role="alert">
+        <div ng-message-exp="['required']">Required</div>
+        <div ng-message-exp="['pattern']">Incorrect email</div>
+      </div>
+    </md-input-container>
+  </div>
+</form>

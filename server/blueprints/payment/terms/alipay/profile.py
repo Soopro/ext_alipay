@@ -5,14 +5,14 @@ from utils.models import BaseDocument
 
 
 class AlipayProfile(BaseDocument):
+    TERM = 'alipay'
+
     __collection__ = 'alipay_profile'
     structure = {
         'open_id': unicode,  # soopro_open_id
         'pid': unicode,
         'key': unicode,
-        'seller_email': unicode,
-        # 'status': int,
-        'term': unicode
+        'seller_email': unicode
     }
 
     required_fields = ['open_id']
@@ -20,9 +20,7 @@ class AlipayProfile(BaseDocument):
     default_values = {
         'pid': u'',
         'key': u'',
-        'seller_email': u'',
-        # 'status': 0,
-        'term': 'alipay'
+        'seller_email': u''
     }
 
     def find_one_by_open_id(self, open_id):

@@ -15,6 +15,10 @@ angular.module('paymentClient')
       templateUrl: 'views/dashboard.html',
       controller: 'DashboardCtrl'
     })
+    .when('/term/:alias', {
+      templateUrl: 'views/term.html',
+      controller: 'TermCtrl'
+    })
     .when('/auth', {
       templateUrl: 'views/auth/auth.html',
       controller: 'AuthCtrl'

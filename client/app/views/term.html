@@ -1,0 +1,9 @@
+<div layout-gt-xs="row" layout="column" layout-align="center center">
+  <img ng-src="{{setBackground(payment)}}" 
+   ng-style="{'max-height':'300px', 'max-width':'300px'}"></img>
+  <div ng-include="setTemplate(payment)"></div>
+</div>
+<div layout="row" layout-align="center center">
+  <md-button ng-click="jumpTo('/')">Back</md-button>
+  <md-button ng-click="submit()">Submit</md-button>
+</div>
