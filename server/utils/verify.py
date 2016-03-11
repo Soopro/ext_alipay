@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import absolute_import
 
-
 from flask import current_app, request, g
 from errors.general_errors import AuthenticationFailed
 
@@ -65,5 +64,6 @@ def verify_token(debug=False):
         g.current_user = current_user
         # print "current_user:", g.current_user
 
-# def check_member_token(memeber_token):
-#     return True
+
+def verify_customer(debug=False):
+    pass

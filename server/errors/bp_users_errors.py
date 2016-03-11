@@ -10,6 +10,7 @@ class SooproRequestAccessTokenError(APIError):
     status_message = "Soopro Request Access Token Error"
     response_code = 10001
 
+
 class SooproRefreshAccessTokenError(APIError):
     status_code = httplib.INTERNAL_SERVER_ERROR
     status_message = "Soopro Refresh Access Token Error"
@@ -26,4 +27,3 @@ class SooproAPIError(APIError):
     status_code = httplib.INTERNAL_SERVER_ERROR
     status_message = "Soopro API requests Error"
     response_code = 10004
-
