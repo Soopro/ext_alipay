@@ -45,7 +45,7 @@ def verify_token(debug=False):
             user = User()
             user['open_id'] = u"open_id_for_test"
             user.save()
-        g.current_user = user
+        g.curr_user = user
     else:
         ext_token = request.headers.get('Authorization')
         if ext_token is None:
@@ -61,8 +61,8 @@ def verify_token(debug=False):
         if current_user is None:
             raise AuthenticationFailed("User Not Exist")
         # print "openid", open_id
-        g.current_user = current_user
-        # print "current_user:", g.current_user
+        g.curr_user = current_user
+        # print "current_user:", g.curr_user
 
 
 def verify_customer(debug=False):

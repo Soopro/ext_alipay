@@ -8,8 +8,8 @@ class Config(object):
     HOST = "127.0.0.1"
     PORT = 5003
 
-    EXT_PAYMENT_DB_HOST = '127.0.0.1'
-    EXT_PAYMENT_DB_PORT = 27017
+    DB_HOST = '127.0.0.1'
+    DB_PORT = 27017
 
     SECRET_KEY = 'secret_key'
 
@@ -18,13 +18,13 @@ class Config(object):
 
     EXT_KEY = 'comment-1453895893'
     EXT_SECRET = '38a6daf0-a718-4456-938f-c6ab2ad03456'
-    GRANT_TYPE = 'code'
+    OAUTH_GRANT_TYPE = 'code'
 
     REMOTE_OAUTH_URL = 'http://d.soopro.com/#/oauth'
     TOKEN_URL = 'http://api.soopro.com/oauth/token'
 
-    REDIRECT_URI = 'http://localhost:9527/#/redirect'
-    EXPIRED_IN = 36000
+    OAUTH_REDIRECT_URI = 'http://localhost:9527/#/redirect'
+    OAUTH_EXPIRED_IN = 36000
 
     CHECKOUT_NOTIFY_URL = u'http://localhost:5001/alipay/confirm_payment'
     CHECKOUT_RETURN_URL = u'http://localhost:9002/checkout#/notify'
@@ -39,24 +39,24 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    EXT_PAYMENT_DB_DBNAME = 'ext_payment_dev'
+    DB_DBNAME = 'ext_payment_dev'
 
 
 class TestCaseConfig(Config):
     DEBUG = False
-    EXT_PAYMENT_DB_DBNAME = 'ext_payment_testcase'
+    DB_DBNAME = 'ext_payment_testcase'
 
 
 class TestingConfig(Config):
     DEBUG = False
-    EXT_PAYMENT_DB_DBNAME = 'ext_payment_test'
+    DB_DBNAME = 'ext_payment_test'
 
 
 class ProductionConfig(Config):
     DEBUG = False
-    EXT_PAYMENT_DB_DBNAME = 'ext_payment_production'
+    DB_DBNAME = 'ext_payment_production'
 
-    REDIRECT_URI = 'http://ext.soopro.com/payment/client/#/redirect'
+    OAUTH_REDIRECT_URI = 'http://ext.soopro.com/payment/client/#/redirect'
 
 
 config = {

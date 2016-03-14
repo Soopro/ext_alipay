@@ -3,9 +3,10 @@ from __future__ import absolute_import
 
 from .routes import urlpatterns
 from flask import Blueprint, request, current_app
-from errors.base_errors import APIError
-from utils.verify import verify_token, verify_customer
-from utils.base_utils import route_inject, make_json_response
+from apiresps import APIError
+from ..helpers import verify_token
+from utils.helpers import route_inject
+from utils.api_utils import make_json_response
 
 bp_name = 'payment'
 
@@ -31,9 +32,9 @@ def before_first_request():
 @blueprint.before_request
 def before_request():
     if request.endpoint in customer_api_endpoints:
-        verify_customer(current_app.config.get("DEBUG"))
+        pass
     else:
-        verify_token(current_app.config.get("DEBUG"))
+        verify_token()
 
 
 @blueprint.errorhandler(APIError)

@@ -11,20 +11,17 @@ angular.module('paymentClient')
 .constant('Config', function(){
   var test = {
     api: "http://127.0.0.1:5003/payment",
-    auth_api: "http://127.0.0.1:5003/payment/user",
-    qrcode_api: "http://127.0.0.1:5003/payment/qrcode?text="
+    auth_api: "http://127.0.0.1:5003/user",
   }
   
   var dev = {
     api: "http://127.0.0.1:5003/payment",
-    auth_api: "http://127.0.0.1:5003/payment/user",
-    qrcode_api: "http://127.0.0.1:5003/payment/qrcode?text="
+    auth_api: "http://127.0.0.1:5003/user",
   }
   
   var prd = {
     api: "http://ext.soopro.com/payment/server/payment",
-    auth_api: "http://ext.soopro.com/payment/server/payment/user",
-    qrcode_api: "http://ext.soopro.com/payment/server/payment/qrcode?text="
+    auth_api: "http://ext.soopro.com/payment/server/user",
   }
   
   var config = dev

@@ -8,12 +8,12 @@ from mongokit import Connection as MongodbConn
 
 from config import config
 from utils.encoders import Encoder
-from utils.sup_ext_oauth import SupAuth
-from utils.base_utils import make_json_response, make_cors_headers
-from errors.general_errors import (NotFound,
-                                   MethodNotAllowed,
-                                   ErrUncaughtException)
+from utils.api_utils import make_json_response, make_cors_headers
+from apiresps.errors import (NotFound,
+                             MethodNotAllowed,
+                             UncaughtException)
 
+from services.sup_oauth import SupOAuth
 
 __version_info__ = ('0', '1', '0')
 __version__ = '.'.join(__version_info__)
@@ -30,20 +30,22 @@ def create_app(config_name='development'):
     # config
     app.config.from_object(config[config_name])
     app.json_encoder = Encoder
+    app.debug = app.config.get("DEBUG")
 
     # database connections
     app.mongodb_database = MongodbConn(
-        host=app.config.get("EXT_PAYMENT_DB_HOST"),
-        port=app.config.get("EXT_PAYMENT_DB_PORT"))
-    app.mongodb_conn = app.mongodb_database[
-        app.config.get("EXT_PAYMENT_DB_DBNAME")]
+        host=app.config.get("DB_HOST"),
+        port=app.config.get("DB_PORT"))
 
-    app.sup_auth = SupAuth(ext_key=app.config.get("EXT_KEY"),
-                           ext_secret=app.config.get("EXT_SECRET"),
-                           grant_type=app.config.get("GRANT_TYPE"),
-                           secret_key=app.config.get("SECRET_KEY"),
-                           redirect_uri=app.config.get("REDIRECT_URI"),
-                           expired_in=app.config.get("EXPIRED_IN"))
+    app.mongodb_conn = app.mongodb_database[app.config.get("DB_DBNAME")]
+
+    app.sup_auth = SupOAuth(ext_key=app.config.get("EXT_KEY"),
+                            ext_secret=app.config.get("EXT_SECRET"),
+                            grant_type=app.config.get("OAUTH_GRANT_TYPE"),
+                            secret_key=app.config.get("SECRET_KEY"),
+                            token_uri=app.config.get("OAUTH_TOKEN_API_URI"),
+                            redirect_uri=app.config.get("OAUTH_REDIRECT_URI"),
+                            expired_in=app.config.get("OAUTH_EXPIRED_IN"))
 
     from blueprints.user.models import User
     app.mongodb_database.register([User])
@@ -53,7 +55,7 @@ def create_app(config_name='development'):
     app.register_blueprint(payment_blueprint, url_prefix="/payment")
 
     from blueprints.user import blueprint as user_blueprint
-    app.register_blueprint(user_blueprint, url_prefix="/payment/user")
+    app.register_blueprint(user_blueprint, url_prefix="/user")
 
     # register error handlers
     @app.errorhandler(404)
@@ -72,7 +74,7 @@ def create_app(config_name='development'):
     def app_error_uncaught(error):
         current_app.logger.warn(
             "Error: Uncaught\n{}".format(traceback.format_exc()))
-        return make_json_response(ErrUncaughtException(repr(error)))
+        return make_json_response(UncaughtException(repr(error)))
 
     @app.before_request
     def app_before_request():

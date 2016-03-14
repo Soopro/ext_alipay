@@ -3,8 +3,9 @@ from __future__ import absolute_import
 
 from flask import g, current_app
 from .terms import get_term, terms
-from utils.base_utils import output_json
-from utils.request_json import get_request_json
+from utils.api_utils import output_json
+from utils.request import get_param
+from .errors import OrderNotFound
 
 
 @output_json
@@ -44,7 +45,7 @@ def get_terms():
 
 @output_json
 def get_all_orders():
-    open_id = g.current_user['open_id']
+    open_id = g.curr_user['open_id']
     orders = current_app.mongodb_conn.Order.find_all_by_open_id(open_id)
 
     return [output_order(order) for order in orders]
@@ -52,20 +53,20 @@ def get_all_orders():
 
 @output_json
 def new_order():
-    open_id = g.current_user['open_id']
-    subject = get_request_json('subject', required=True)
-    price = get_request_json('price', required=True)
-    amount = get_request_json('amount', required=True)
+    open_id = g.curr_user['open_id']
+    subject = get_param('subject', required=True)
+    price = get_param('price', required=True)
+    amount = get_param('amount', required=True)
     total_fee = price * amount
-    receive_name = get_request_json('receive_name', required=True)
-    receive_tel = get_request_json('receive_tel', required=True)
-    receive_address = get_request_json('receive_address', required=True)
+    receive_name = get_param('receive_name', required=True)
+    receive_tel = get_param('receive_tel', required=True)
+    receive_address = get_param('receive_address', required=True)
 
-    member_id = get_request_json('member_id', default=u"anonymous")
-    body = get_request_json('body', default=u"")
+    member_id = get_param('member_id', default=u"anonymous")
+    body = get_param('body', default=u"")
 
-    # payment_term = get_request_json('payment_term', required=True)
-    # trade_id = get_request_json('trade_id', required=True)
+    # payment_term = get_param('payment_term', required=True)
+    # trade_id = get_param('trade_id', required=True)
 
     order = current_app.mongodb_conn.Order()
     order['open_id'] = open_id
@@ -98,24 +99,24 @@ def get_order(order_id):
     order = current_app.mongodb_conn.\
         Order.find_one_by_id_and_mid(order_id, member_id)
     if not order:
-        raise Exception
+        raise OrderNotFound
 
     return output_order(order)
 
 
 # @output_json
 # def save_order(order_id):
-#     open_id = g.current_user['open_id']
-#     subject = get_request_json('subject', required=True)
-#     price = get_request_json('price', required=True)
-#     amount = get_request_json('amount', required=True)
+#     open_id = g.curr_user['open_id']
+#     subject = get_param('subject', required=True)
+#     price = get_param('price', required=True)
+#     amount = get_param('amount', required=True)
 #     total_fee = price * amount
-#     receive_name = get_request_json('receive_name')
-#     receive_tel = get_request_json('receive_tel')
-#     receive_address = get_request_json('receive_address', required=True)
+#     receive_name = get_param('receive_name')
+#     receive_tel = get_param('receive_tel')
+#     receive_address = get_param('receive_address', required=True)
 #
-#     member_id = get_request_json('member_id', default=u"anonymous")
-#     body = get_request_json('body', default=u"")
+#     member_id = get_param('member_id', default=u"anonymous")
+#     body = get_param('body', default=u"")
 
 
 @output_json
@@ -124,7 +125,7 @@ def delete_order(order_id):
     order = current_app.mongodb_conn.\
         Order.find_one_by_id_and_mid(order_id, member_id)
     if not order:
-        raise Exception
+        raise OrderNotFound
 
     order.remove()
 
